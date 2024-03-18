@@ -22,3 +22,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResource('personalities', App\Http\Controllers\Api\PersonalityController::class);
 
 Route::apiResource('users', App\Http\Controllers\Api\UserController::class);
+
+
+Route::apiResource('personalities', App\Http\Controllers\Api\PersonalityController::class);
+
+Route::apiResource('users', App\Http\Controllers\Api\UserController::class);
