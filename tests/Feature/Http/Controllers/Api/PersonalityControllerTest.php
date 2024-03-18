@@ -3,6 +3,7 @@
 namespace Tests\Feature\Http\Controllers\Api;
 
 use App\Models\Personality;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Carbon;
@@ -44,27 +45,24 @@ final class PersonalityControllerTest extends TestCase
     {
         $name = $this->faker->name();
         $birthdate = Carbon::parse($this->faker->date());
-        $deathdate = Carbon::parse($this->faker->date());
         $description = $this->faker->text();
-        $image = $this->faker->word();
         $created_by = $this->faker->randomNumber();
+        $user = User::factory()->create();
 
         $response = $this->post(route('personalities.store'), [
             'name' => $name,
             'birthdate' => $birthdate->toDateString(),
-            'deathdate' => $deathdate->toDateString(),
             'description' => $description,
-            'image' => $image,
             'created_by' => $created_by,
+            'user_id' => $user->id,
         ]);
 
         $personalities = Personality::query()
             ->where('name', $name)
             ->where('birthdate', $birthdate)
-            ->where('deathdate', $deathdate)
             ->where('description', $description)
-            ->where('image', $image)
             ->where('created_by', $created_by)
+            ->where('user_id', $user->id)
             ->get();
         $this->assertCount(1, $personalities);
         $personality = $personalities->first();
@@ -102,18 +100,16 @@ final class PersonalityControllerTest extends TestCase
         $personality = Personality::factory()->create();
         $name = $this->faker->name();
         $birthdate = Carbon::parse($this->faker->date());
-        $deathdate = Carbon::parse($this->faker->date());
         $description = $this->faker->text();
-        $image = $this->faker->word();
         $created_by = $this->faker->randomNumber();
+        $user = User::factory()->create();
 
         $response = $this->put(route('personalities.update', $personality), [
             'name' => $name,
             'birthdate' => $birthdate->toDateString(),
-            'deathdate' => $deathdate->toDateString(),
             'description' => $description,
-            'image' => $image,
             'created_by' => $created_by,
+            'user_id' => $user->id,
         ]);
 
         $personality->refresh();
@@ -123,10 +119,9 @@ final class PersonalityControllerTest extends TestCase
 
         $this->assertEquals($name, $personality->name);
         $this->assertEquals($birthdate, $personality->birthdate);
-        $this->assertEquals($deathdate, $personality->deathdate);
         $this->assertEquals($description, $personality->description);
-        $this->assertEquals($image, $personality->image);
         $this->assertEquals($created_by, $personality->created_by);
+        $this->assertEquals($user->id, $personality->user_id);
     }
 
 

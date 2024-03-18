@@ -22,10 +22,11 @@ class PersonalityStoreRequest extends FormRequest
         return [
             'name' => ['required', 'string'],
             'birthdate' => ['required', 'date'],
-            'deathdate' => ['required', 'date'],
+            'deathdate' => ['nullable', 'date'],
             'description' => ['required', 'string'],
-            'image' => ['required', 'string'],
+            'image' => ['nullable', 'string'],
             'created_by' => ['required', 'integer', 'gt:0'],
+            'user_id' => ['required', 'integer', 'exists:users,id'],
         ];
     }
 }

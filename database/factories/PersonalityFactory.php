@@ -5,6 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\Personality;
+use App\Models\User;
 
 class PersonalityFactory extends Factory
 {
@@ -27,6 +28,7 @@ class PersonalityFactory extends Factory
             'description' => $this->faker->text(),
             'image' => $this->faker->word(),
             'created_by' => $this->faker->randomNumber(),
+            'user_id' => User::factory(),
         ];
     }
 }

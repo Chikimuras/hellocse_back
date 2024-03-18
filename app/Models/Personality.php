@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Personality extends Model
 {
@@ -21,6 +22,7 @@ class Personality extends Model
         'description',
         'image',
         'created_by',
+        'user_id',
     ];
 
     /**
@@ -33,5 +35,11 @@ class Personality extends Model
         'birthdate' => 'date',
         'deathdate' => 'date',
         'created_by' => 'integer',
+        'user_id' => 'integer',
     ];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

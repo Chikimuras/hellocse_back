@@ -44,20 +44,17 @@ final class UserControllerTest extends TestCase
         $name = $this->faker->name();
         $email = $this->faker->safeEmail();
         $password = $this->faker->password();
-        $remember_token = $this->faker->uuid();
 
         $response = $this->post(route('users.store'), [
             'name' => $name,
             'email' => $email,
             'password' => $password,
-            'remember_token' => $remember_token,
         ]);
 
         $users = User::query()
             ->where('name', $name)
             ->where('email', $email)
             ->where('password', $password)
-            ->where('remember_token', $remember_token)
             ->get();
         $this->assertCount(1, $users);
         $user = $users->first();
@@ -96,13 +93,11 @@ final class UserControllerTest extends TestCase
         $name = $this->faker->name();
         $email = $this->faker->safeEmail();
         $password = $this->faker->password();
-        $remember_token = $this->faker->uuid();
 
         $response = $this->put(route('users.update', $user), [
             'name' => $name,
             'email' => $email,
             'password' => $password,
-            'remember_token' => $remember_token,
         ]);
 
         $user->refresh();
@@ -113,7 +108,6 @@ final class UserControllerTest extends TestCase
         $this->assertEquals($name, $user->name);
         $this->assertEquals($email, $user->email);
         $this->assertEquals($password, $user->password);
-        $this->assertEquals($remember_token, $user->remember_token);
     }
 
 

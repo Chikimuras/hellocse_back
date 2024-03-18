@@ -20,6 +20,8 @@ class PersonalityResource extends JsonResource
             'description' => $this->description,
             'image' => $this->image,
             'created_by' => $this->created_by,
+            'user_id' => $this->user_id,
+            'user' => UserResource::make($this->whenLoaded('user')),
         ];
     }
 }

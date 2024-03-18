@@ -23,7 +23,7 @@ class UserStoreRequest extends FormRequest
             'name' => ['required', 'string'],
             'email' => ['required', 'email'],
             'password' => ['required', 'password'],
-            'remember_token' => ['required', 'string'],
+            'remember_token' => ['nullable', 'string'],
         ];
     }
 }
