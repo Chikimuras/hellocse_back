@@ -18,7 +18,6 @@ return new class extends Migration
             $table->date('deathdate')->nullable();
             $table->text('description');
             $table->string('image')->nullable();
-            $table->unsignedInteger('created_by');
             $table->foreignId('user_id');
             $table->timestamps();
         });
