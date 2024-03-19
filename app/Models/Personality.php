@@ -34,7 +34,6 @@ class Personality extends Model
         'id' => 'integer',
         'birthdate' => 'date',
         'deathdate' => 'date',
-        'created_by' => 'integer',
         'user_id' => 'integer',
     ];
 

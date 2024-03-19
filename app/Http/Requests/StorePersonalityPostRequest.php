@@ -1,32 +1,32 @@
 <?php
 
-namespace App\Http\Requests\Api;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PersonalityStoreRequest extends FormRequest
+class StorePersonalityPostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return auth()->check();
     }
 
     /**
      * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string'],
+            'name' => ['required', 'string', 'max:255'],
             'birthdate' => ['required', 'date'],
-            'deathdate' => ['nullable', 'date'],
+            'deathdate' => ['date', 'after:birthdate', 'nullable'],
             'description' => ['required', 'string'],
-            'image' => ['nullable', 'string'],
-            'created_by' => ['required', 'integer', 'gt:0'],
-            'user_id' => ['required', 'integer', 'exists:users,id'],
+            'image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ];
     }
 }
